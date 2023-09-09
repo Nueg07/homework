@@ -1,90 +1,91 @@
-// Buat array dengan 100 nilai acak antara 1 dan 50
+// Membuat array dengan 100 nilai random antara 1 dan 50
 let randomArray = [];
-
 for (let i = 0; i < 100; i++) {
-  const randomValue = Math.floor(Math.random() * 50) + 1;
-  randomArray.push(randomValue);
+  randomArray.push(Math.floor(Math.random() * 50) + 1);
 }
 
-// Buat array untuk nilai genap dan ganjil
-let evenArray = [];
-let oddArray = [];
+// Membuat dua array untuk index genap dan ganjil
+let genapArray = [];
+let ganjilArray = [];
 
 for (let i = 0; i < randomArray.length; i++) {
   if (i % 2 === 0) {
-    evenArray.push(randomArray[i]);
+    genapArray.push(randomArray[i]);
   } else {
-    oddArray.push(randomArray[i]);
+    ganjilArray.push(randomArray[i]);
   }
 }
 
-// Fungsi untuk menghitung nilai minimum
-function getMinValue(arr) {
-  return Math.min(...arr);
+// Menghitung nilai Min, Max, Total, dan Rata-rata tanpa menggunakan fungsi bawaan
+function hitungMin(array) {
+  let min = array[0];
+  for (let i = 1; i < array.length; i++) {
+    if (array[i] < min) {
+      min = array[i];
+    }
+  }
+  return min;
 }
 
-// Fungsi untuk menghitung nilai maksimum
-function getMaxValue(arr) {
-  return Math.max(...arr);
+function hitungMax(array) {
+  let max = array[0];
+  for (let i = 1; i < array.length; i++) {
+    if (array[i] > max) {
+      max = array[i];
+    }
+  }
+  return max;
 }
 
-// Fungsi untuk menghitung total
-function getTotalValue(arr) {
-  return arr.reduce((acc, val) => acc + val, 0);
+function hitungTotal(array) {
+  let total = 0;
+  for (let i = 0; i < array.length; i++) {
+    total += array[i];
+  }
+  return total;
 }
 
-// Fungsi untuk menghitung rata-rata
-function getAverageValue(arr) {
-  return arr.length === 0 ? 0 : getTotalValue(arr) / arr.length;
+function hitungRataRata(array) {
+  let total = hitungTotal(array);
+  return total / array.length;
 }
 
-// Menghitung nilai minimum, maksimum, total, dan rata-rata untuk array genap
-let minEven = getMinValue(evenArray);
-let maxEven = getMaxValue(evenArray);
-let totalEven = getTotalValue(evenArray);
-let averageEven = getAverageValue(evenArray);
+// Menghitung nilai Min, Max, Total, dan Rata-rata untuk array genap dan ganjil
+const minGenap = hitungMin(genapArray);
+const maxGenap = hitungMax(genapArray);
+const totalGenap = hitungTotal(genapArray);
+const rataRataGenap = hitungRataRata(genapArray);
 
-// Menghitung nilai minimum, maksimum, total, dan rata-rata untuk array ganjil
-let minOdd = getMinValue(oddArray);
-let maxOdd = getMaxValue(oddArray);
-let totalOdd = getTotalValue(oddArray);
-let averageOdd = getAverageValue(oddArray);
+const minGanjil = hitungMin(ganjilArray);
+const maxGanjil = hitungMax(ganjilArray);
+const totalGanjil = hitungTotal(ganjilArray);
+const rataRataGanjil = hitungRataRata(ganjilArray);
 
-// Bandingkan kedua array
-let comparisonResults = [];
-
-if (minEven > minOdd) {
-  comparisonResults.push("Min lebih besar pada array genap");
-} else if (minOdd > minEven) {
-  comparisonResults.push("Min lebih besar pada array ganjil");
+// Membandingkan hasil
+let hasilPerbandingan = "";
+if (minGenap > minGanjil) {
+  hasilPerbandingan += "Min lebih besar pada array genap\n";
+} else if (minGenap < minGanjil) {
+  hasilPerbandingan += "Min lebih besar pada array ganjil\n";
 } else {
-  comparisonResults.push("Min memiliki nilai yang sama pada kedua array");
+  hasilPerbandingan += "Min memiliki nilai sama antara array genap dan ganjil\n";
 }
 
-if (maxEven > maxOdd) {
-  comparisonResults.push("Max lebih besar pada array genap");
-} else if (maxOdd > maxEven) {
-  comparisonResults.push("Max lebih besar pada array ganjil");
+if (maxGenap > maxGanjil) {
+  hasilPerbandingan += "Max lebih besar pada array genap\n";
+} else if (maxGenap < maxGanjil) {
+  hasilPerbandingan += "Max lebih besar pada array ganjil\n";
 } else {
-  comparisonResults.push("Max memiliki nilai yang sama pada kedua array");
+  hasilPerbandingan += "Max memiliki nilai sama antara array genap dan ganjil\n";
 }
 
-if (totalEven === totalOdd) {
-  comparisonResults.push("Total memiliki nilai yang sama pada array genap dan ganjil");
+if (totalGenap === totalGanjil) {
+  hasilPerbandingan += "Total memiliki nilai sama antara array genap dan ganjil\n";
 } else {
-  comparisonResults.push("Total berbeda antara array genap dan ganjil");
+  hasilPerbandingan += "Total berbeda antara array genap dan ganjil\n";
 }
 
-if (averageEven > averageOdd) {
-  comparisonResults.push("Rata-rata lebih besar pada array genap");
-} else if (averageOdd > averageEven) {
-  comparisonResults.push("Rata-rata lebih besar pada array ganjil");
-} else {
-  comparisonResults.push("Rata-rata memiliki nilai yang sama pada kedua array");
-}
-
-// Tampilkan hasilnya
-console.log("Array Genap:", evenArray);
-console.log("Array Ganjil:", oddArray);
+console.log("Array Genap:", genapArray);
+console.log("Array Ganjil:", ganjilArray);
 console.log("Hasil Perbandingan:");
-comparisonResults.forEach((result) => console.log(result));
+console.log(hasilPerbandingan);
