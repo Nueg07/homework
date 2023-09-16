@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registrasi dan List Pendaftar</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        .tab-content {
+            display: none;
+        }
+
+        .active-tab {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="#" onclick="openTab('registrasi')">Registrasi</a></li>
+        <li><a href="#" onclick="openTab('list-pendaftar')">List Pendaftar</a></li>
+    </ul>
+
+    <div id="registrasi" class="tab-content active-tab">
+        <h2>Form Registrasi</h2>
+        <form id="registrasiForm">
+            <label for="nama">Nama:</label>
+            <input type="text" id="nama" name="nama" required minlength="10"><br><br>
+
+            <label for="umur">Umur:</label>
+            <input type="number" id="umur" name="umur" required min="25"><br><br>
+
+            <label for="uangSangu">Uang Saku:</label>
+            <input type="number" id="uangSaku" name="uangSaku" required min="100000" max="1000000"><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div id="list-pendaftar" class="tab-content">
+        <h2>List Pendaftar</h2>
+        <table id="pendaftarTable" border="1">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Umur</th>
+                    <th>Uang Saku</th>
+                </tr>
+            </thead>
+            <tbody id="pendaftarList"></tbody>
+        </table>
+        <p>Resume:</p>
+        <p>Rata-rata pendaftar memiliki uang saku sebesar <span id="rataUangSaku">0</span> dengan rata-rata umur <span id="rataUmur">0</span></p>
+    </div>
+
+    <script>
+        class Pendaftar {
+            constructor(nama, umur, uangSaku) {
+                this.nama = nama;
+                this.umur = umur;
+                this.uangSaku = uangSaku;
+            }
+        }
+
+        const pendaftarList = [];
+
+        function openTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.style.display = 'none';
+            });
+
+            const activeTab = document.getElementById(tabName);
+            activeTab.style.display = 'block';
+        }
+
+        async function updateResume() {
+            const pendaftarTable = document.getElementById('pendaftarTable');
+            const pendaftarListBody = document.getElementById('pendaftarList');
+            const rataUangSakuSpan = document.getElementById('rataUangSaku');
+            const rataUmurSpan = document.getElementById('rataUmur');
+
+            // Menghapus semua data dari tabel pendaftar
+            pendaftarListBody.innerHTML = '';
+
+            // Menghitung rata-rata uang saku dan umur
+            let totalUangSaku = 0;
+            let totalUmur = 0;
+
+            for (const pendaftar of pendaftarList) {
+                totalUangSaku += pendaftar.uangSaku;
+                totalUmur += pendaftar.umur;
+
+                // Menambahkan data ke tabel pendaftar
+                const newRow = pendaftarTable.insertRow(-1);
+                const cell1 = newRow.insertCell(0);
+                const cell2 = newRow.insertCell(1);
+                const cell3 = newRow.insertCell(2);
+                cell1.innerHTML = pendaftar.nama;
+                cell2.innerHTML = pendaftar.umur;
+                cell3.innerHTML = pendaftar.uangSaku;
+            }
+
+            const rataUangSaku = totalUangSaku / pendaftarList.length;
+            const rataUmur = totalUmur / pendaftarList.length;
+
+            rataUangSakuSpan.textContent = rataUangSaku.toFixed(2);
+            rataUmurSpan.textContent = rataUmur.toFixed(2);
+        }
+
+        document.getElementById('registrasiForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama').value;
+            const umur = parseInt(document.getElementById('umur').value);
+            const uangSaku = parseInt(document.getElementById('uangSaku').value);
+
+            if (nama.length < 10 || umur < 25 || uangSaku < 100000 || uangSaku > 1000000) {
+                alert('Data tidak memenuhi kriteria.');
+                return;
+            }
+
+            // Menambahkan pendaftar ke dalam list
+            const newPendaftar = new Pendaftar(nama, umur, uangSaku);
+            pendaftarList.push(newPendaftar);
+
+            // Mengosongkan form
+            document.getElementById('nama').value = '';
+            document.getElementById('umur').value = '';
+            document.getElementById('uangSaku').value = '';
+
+            // Memanggil fungsi updateResume untuk menampilkan perubahan di tabel
+            await updateResume();
+        });
+    </script>
+</body>
+</html>

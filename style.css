@@ -1,0 +1,113 @@
+/* Gaya umum */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Gaya untuk tab */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #555;
+}
+
+/* Gaya untuk form registrasi */
+#registrasiForm {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="submit"] {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #555;
+}
+
+/* Gaya untuk tabel list pendaftar */
+#pendaftarTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+}
+
+#pendaftarTable th,
+#pendaftarTable td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+#pendaftarTable th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Gaya untuk resume */
+p {
+  margin: 10px 20px;
+  font-weight: bold;
+}
+
+/* Gaya untuk tampilan responsif */
+@media (max-width: 600px) {
+  .container {
+      padding: 10px;
+  }
+
+  #registrasiForm {
+      padding: 10px;
+  }
+}
